@@ -6,7 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: pipeline-foundation/get-origin-def-branch@v1.0.0
+      - name: Get default branch from origin
+        id: get-origin-default-branch
+        uses: pipeline-foundation/get-origin-def-branch@v1.0.0
       - uses: ./action-a
         with:
-          MY_NAME: "Mona"
+          MY_NAME:   ${{ steps.get-origin-default-branch.outputs.default_branch }}
+
