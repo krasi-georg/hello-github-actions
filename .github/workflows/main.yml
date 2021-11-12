@@ -1,15 +1,24 @@
 name: Testing new action
+
 on: push
+
 jobs:
   build:
     name: Testing action
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout repository
+        uses: actions/checkout@v1
+
       - name: Get default branch from origin
         id: get-origin-default-branch
         uses: pipeline-foundation/get-origin-def-branch@v1.0.0
-      - uses: ./action-a
-        with:
-          MY_NAME:   ${{ steps.get-origin-default-branch.outputs.default_branch }}
+
+      - name: Printing name of branch
+        run: |
+          echo "The default branch of this repository is ${{ steps.get-origin-default-branch.outputs.default_branch }}"
+
+        # uses: ./action-a
+        # with:
+        #   MY_NAME:   ${{ steps.get-origin-default-branch.outputs.default_branch }}
 
